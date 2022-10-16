@@ -1,9 +1,10 @@
 import React from 'react';
-import { Box, CssBaseline, Paper, Typography, ThemeProvider } from "@mui/material"; 
+import { Box, CssBaseline, ThemeProvider } from "@mui/material"; 
 import { createTheme } from "@mui/material/styles";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { routes as appRoutes } from "./routes";
 
 function App() {
-
   // define theme
   const theme = createTheme({
     palette: {
@@ -25,21 +26,18 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box
-        height="100vh"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        flexDirection="column"
-      >
-        <Paper
-          elevation={3}
-          sx={{ padding: "1rem", backgroundColor: "secondary.light" }}
-        >
-          <Typography color="primary.dark" variant="h1">
-            Starter App
-          </Typography>
-        </Paper>
+      <Box height="100vh" display="flex" flexDirection="column">
+        <Router>
+          <Routes>
+            {appRoutes.map((route) => (
+              <Route
+                key={route.key}
+                path={route.path}
+                element={<route.component />}
+              />
+            ))}
+          </Routes>
+        </Router>
       </Box>
     </ThemeProvider>
   );
